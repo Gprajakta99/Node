@@ -16,24 +16,24 @@ app.get('/', (req, res) => {
 });
 
 app.get('/students', (req, res) => {
-    res.send(data);
+    res.json(data);
 });
 
 app.get('/students/:id', (req, res) => {
     let id = req.params.id;
     let stud = data.find((s) => s.id === +id);
-    res.json(stud);
+    res.json(stud || { error: 'Student not found' });
 });
 
 app.delete('/students/:id', (req, res) => {
     let id = req.params.id;
     let index = data.findIndex((s) => s.id === +id);
     if (index === -1) {
-        res.send('invalid id');
+        res.json({ error: 'Invalid ID' });
     } else {
         data.splice(index, 1);
         fs.writeFileSync('students.json', JSON.stringify(data));
-        res.send('data deleted');
+        res.json({ message: 'Data deleted' });
     }
 });
 
@@ -41,7 +41,7 @@ app.post('/students', (req, res) => {
     let stud = req.body;
     data.push(stud);
     fs.writeFileSync('students.json', JSON.stringify(data));
-    res.send('data saved');
+    res.json({ message: 'Data saved' });
 });
 
 app.patch('/students/:id', (req, res) => {
@@ -50,13 +50,13 @@ app.patch('/students/:id', (req, res) => {
     let stud_json = data.find((s) => s.id === id);
 
     if (!stud_json) {
-        res.json('invalid id');
+        res.json({ error: 'Invalid ID' });
         return;
     }
 
     Object.assign(stud_json, stud_post);
     fs.writeFileSync('students.json', JSON.stringify(data));
-    res.json('data updated');
+    res.json({ message: 'Data updated' });
 });
 
 app.listen(port, () => {
