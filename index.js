@@ -1,72 +1,64 @@
-const express = require('express')
-const app = express()
-const port = 3000
-let fs = require('fs')
-let data = JSON.parse(fs.readFileSync('students.json','utf-8'))
+const express = require('express');
+const cors = require('cors');           
+const fs = require('fs');
 
+const app = express();
+const port = 3000;
 
+app.use(cors());                       
+app.use(express.json());               
+app.use(express.urlencoded({ extended: false }));
+
+let data = JSON.parse(fs.readFileSync('students.json', 'utf-8'));
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+    res.send('Hello World!');
+});
+
 app.get('/students', (req, res) => {
-  res.send(data)
-})
+    res.send(data);
+});
 
+app.get('/students/:id', (req, res) => {
+    let id = req.params.id;
+    let stud = data.find((s) => s.id === +id);
+    res.json(stud);
+});
 
-app.get('/students/:id',(req,res)=>{
-    let id= req.params.id
-    let stud = data.find((s)=>s.id===(+id))
-    res.json(stud)
-})
-app.delete('/:id',(req,res)=>{
-    let id= req.params.id
-    let Index = data.findIndex((s)=>s.id===(+id))
-    if(Index==-1)
-    {
-        res.send('invalid id')
-
+app.delete('/students/:id', (req, res) => {
+    let id = req.params.id;
+    let index = data.findIndex((s) => s.id === +id);
+    if (index === -1) {
+        res.send('invalid id');
+    } else {
+        data.splice(index, 1);
+        fs.writeFileSync('students.json', JSON.stringify(data));
+        res.send('data deleted');
     }
-    else
-    {
-        data.splice(Index,1)
-        fs.writeFileSync('students.json',JSON.stringify(data))
-        res.send('data deleted')
+});
+
+app.post('/students', (req, res) => {
+    let stud = req.body;
+    data.push(stud);
+    fs.writeFileSync('students.json', JSON.stringify(data));
+    res.send('data saved');
+});
+
+app.patch('/students/:id', (req, res) => {
+    let id = +req.params.id;
+    let stud_post = req.body;
+    let stud_json = data.find((s) => s.id === id);
+
+    if (!stud_json) {
+        res.json('invalid id');
+        return;
     }
 
-})
-app.use(express.json())
-app.post('/',(req,res)=>{
-
-    let stud=req.body
-
-    data.push(stud)
-    fs.writeFileSync('students.json',JSON.stringify(data))
-    res.send('data saved')
-
-})
-
-app.use(express.urlencoded({extended:false}))
-app.patch('/:id',(req,res)=>{
-
-    let id=+req.params.id
-    
-    let stud_post=req.body
-
-    let stud_json=data.find((s)=>s.id===(id))
-
-    if(stud_json==null)
-    {
-        res.json('invalide id')
-
-    }
-    Object.assign(stud_json,stud_post)
-    fs.writeFileSync('students.json',JSON.stringify(data))
-    res.json('data updated')
-
-})
-
+    Object.assign(stud_json, stud_post);
+    fs.writeFileSync('students.json', JSON.stringify(data));
+    res.json('data updated');
+});
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+    console.log(`App listening on port ${port}`);
+});
