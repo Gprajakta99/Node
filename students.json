@@ -1,9 +1,9 @@
 [
     {
         "id": 1,
-        "first_name": "Fawn",
-        "last_name": "Mansour",
-        "email": "fmansour0@histats.com"
+        "first_name": "Neha",
+        "last_name": "Khilari",
+        "email": "nKhilari@gmail.com"
     },
     {
         "id": 2,
@@ -12,51 +12,9 @@
         "email": "om2@irs.gov"
     },
     {
-        "id": 4,
-        "first_name": "Aaron",
-        "last_name": "Woodison",
-        "email": "awoodison3@cargocollective.com"
-    },
-    {
-        "id": 5,
-        "first_name": "Whit",
-        "last_name": "Pearlman",
-        "email": "wpearlman4@google.co.uk"
-    },
-    {
-        "id": 6,
-        "first_name": "Walker",
-        "last_name": "Skarr",
-        "email": "wskarr5@multiply.com"
-    },
-    {
-        "id": 7,
-        "first_name": "Fitz",
-        "last_name": "Abbys",
-        "email": "fabbys6@state.tx.us"
-    },
-    {
-        "id": 8,
-        "first_name": "Sholom",
-        "last_name": "Jillett",
-        "email": "sjillett7@columbia.edu"
-    },
-    {
-        "id": 9,
-        "first_name": "Sophia",
-        "last_name": "Cecely",
-        "email": "scecely8@yandex.ru"
-    },
-    {
-        "id": 10,
-        "first_name": "Colleen",
-        "last_name": "Siggers",
-        "email": "csiggers9@dropbox.com"
-    },
-    {
-        "id": 20,
-        "first_name": "om",
-        "last_name": "gaikwad",
-        "email": "om2@irs.gov"
+        "id": 3,
+        "first_name": "Swara",
+        "last_name": "Rothe",
+        "email": "Srothe@gmail.com"
     }
 ]
